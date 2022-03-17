@@ -1,6 +1,29 @@
-import React from 'react'
+import {useState, useEffect} from 'react';
+
 
 const Formulario = () => {
+  const [nombre, setNombre] = useState("")
+  const [dueño, setDueño] = useState("")  
+  const [email, setEmail] = useState("")
+  const [fecha, setFecha] = useState("")
+  const [comentario, setComentario] = useState("")
+
+  const [error, setError] = useState(false)
+
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+
+    if ( [nombre, dueño, email, fecha, comentario].includes("")){
+      setError(true)
+      return ; 
+    } 
+
+    setError(false)
+
+    
+  }
+
   return (
     <div className='md:w-1/2 lg:w-2/5'>
 
@@ -13,8 +36,16 @@ const Formulario = () => {
           <span className='text-indigo-600 font-bold'>Administralos</span>
       </p>
 
-      <form className='bg-white shadow-md rounded-lg py-10 px-5 mb-10'>
+      <form 
+      onSubmit={handleSubmit}
+      className='bg-white shadow-md rounded-lg py-10 px-5 mb-10 mx-5'>
         
+       { error && 
+        <div className='text-white bg-red-600 text-center rounded-md uppercase p-3 m-3'>
+          <p>Todos los campos son obligatorios</p>
+        </div>
+       }
+
         <div className='mb-5'>
           <label htmlFor='mascota' className='block text-gray-700 uppercase font-bold'>
             Nombre Mascota
@@ -24,6 +55,8 @@ const Formulario = () => {
             type="text"
             placeholder='Escribe el nombre de la mascota'
             className='w-full border-2 p-2 mt-2 placeholder-gray-400 rounded-md'
+            value={nombre}
+            onChange={(e)=>setNombre(e.target.value)}
           />
         </div>
       
@@ -36,6 +69,8 @@ const Formulario = () => {
             type="text"
             placeholder='Escribe el nombre del dueño'
             className='w-full border-2 p-2 mt-2 placeholder-gray-400 rounded-md'
+            value={dueño}
+            onChange={(e)=>setDueño(e.target.value)}
           />
         </div>
 
@@ -48,6 +83,8 @@ const Formulario = () => {
             type="email"
             placeholder='Escribe un email de contacto'
             className='w-full border-2 p-2 mt-2 placeholder-gray-400 rounded-md'
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
           />
         </div>
 
@@ -59,6 +96,8 @@ const Formulario = () => {
             id='ingreso'
             type="date"
             className='w-full border-2 p-2 mt-2 placeholder-gray-400 rounded-md'
+            value={fecha}
+            onChange={(e)=>setFecha(e.target.value)}
           />
         </div>
 
@@ -70,6 +109,8 @@ const Formulario = () => {
             id='comentario'
             className='w-full border-2 p-2 mt-2 placeholder-gray-400 rounded-md'
             placeholder='Escribe un comentario'
+            value={comentario}
+            onChange={(e)=>setComentario(e.target.value)}
           />
         </div>
 
