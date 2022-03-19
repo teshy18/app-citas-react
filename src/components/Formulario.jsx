@@ -1,27 +1,38 @@
 import {useState, useEffect} from 'react';
 
 import Error from './Error'
+import ListadoPacientes from './ListadoPacientes';
 
-const generarId = () => {
-  const random = Math.random().toString().slice(2)
-  const fecha = Date.now().toString()
 
-  return random + fecha
-}
-
-const Formulario = ( {pacientes, setPacientes} ) => {
+const Formulario = ( {pacientes, setPacientes, paciente} ) => {
   const [nombre, setNombre] = useState("")
   const [dueño, setDueño] = useState("")  
   const [email, setEmail] = useState("")
   const [fecha, setFecha] = useState("")
   const [comentario, setComentario] = useState("")
-
+  
   const [error, setError] = useState(false)
-
-
+  
+  useEffect(()=>{
+    if(Object.keys(paciente).length>0){
+      setNombre(paciente.nombre)
+      setDueño(paciente.dueño)
+      setEmail(paciente.email)
+      setFecha(paciente.fecha)
+      setComentario(paciente.comentario)
+    }
+  },[paciente])
+  
+  const generarId = () => {
+    const random = Math.random().toString().slice(2)
+    const fecha = Date.now().toString()
+  
+    return random + fecha
+  }
+  
   const handleSubmit = (e) =>{
     e.preventDefault();
-
+    
     //Validacion del formulario
     if ( [nombre, dueño, email, fecha, comentario].includes("")){
       setError(true)
