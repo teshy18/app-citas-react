@@ -1,38 +1,61 @@
 
-const Paciente = () => {
+const Paciente = ({paciente, setPaciente}) => {
+
+  const {nombre, dueño, email, fecha, comentario} = paciente
+
   return (
-    <div className='bg-white shadow-md rounded-lg py-10 px-5 mb-10 mx-5 my-10'>
+    <div  className='bg-white shadow-md rounded-lg pt-10 pb-5 px-5 mx-5 my-10'>
                       
         <p className='font-bold text-gray-700 uppercase  mb-3'> Nombre: {''}
           <span className='font-normal normal-case'>
-              Hook
+             {nombre} 
           </span>
         </p>
 
         <p className='font-bold text-gray-700 uppercase mb-3'> Dueño: {''}
           <span className='font-normal normal-case'>
-              Hook
+              {dueño}
           </span>
         </p>
         
         <p className='font-bold text-gray-700 uppercase mb-3'> Email: {''}
           <span className='font-normal normal-case'>
-              Hook
+              {email}
           </span>
         </p>
         
         <p className='font-bold text-gray-700 uppercase mb-3'> Ingreso: {''}
           <span className='font-normal normal-case'>
-              Hook
+              {fecha}
           </span>
         </p>
 
         
         <p className='font-bold text-gray-700 uppercase mb-3'> Comentario: {''}
           <span className='font-normal normal-case'>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+            {comentario}
           </span>
         </p>
+
+        <div className="flex justify-around">
+          <button 
+            type="button"
+            className="font-bold py-2 px-10 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md"
+            onClick={()=>setPaciente(paciente)}
+            >
+            Editar
+          </button>
+
+          <button 
+            type="button"
+            className="font-bold py-2 px-10 bg-red-600 hover:bg-red-700 text-white rounded-md">
+            Eliminar
+          </button>
+
+        </div>
+
+
+
       </div>
   )
 }
