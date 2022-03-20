@@ -1,10 +1,10 @@
 import {useState, useEffect} from 'react';
 
 import Error from './Error'
-import ListadoPacientes from './ListadoPacientes';
 
 
-const Formulario = ( {pacientes, setPacientes, paciente} ) => {
+
+const Formulario = ( {pacientes, setPacientes, paciente, setPaciente} ) => {
   const [nombre, setNombre] = useState("")
   const [dueño, setDueño] = useState("")  
   const [email, setEmail] = useState("")
@@ -42,17 +42,30 @@ const Formulario = ( {pacientes, setPacientes, paciente} ) => {
     setError(false)
 
     //Construccion del objeto paciente
-    const paciente = {
+    const objPaciente = {
       nombre,
       dueño, 
       email, 
       fecha, 
-      comentario,
-      id: generarId()
+      comentario
     }
     
+    if(paciente.id){
+      //Se edita el paciente
+      objPaciente.id = paciente.id
+      
+      const pacientesActualizados = pacientes.map(pacienteState => pacienteState.id === paciente.id ? objPaciente : pacienteState)
+
+      setPacientes(pacientesActualizados)
+      setPaciente({})      
+    }else{
+      //paciente nuevo
+    
+      objPaciente.id = generarId()
+      setPacientes([...pacientes, objPaciente])
+    }
+
     //Agregando el paciente a la lista de pacientes. 
-    setPacientes([...pacientes, paciente])
     
     //Reiniciando el formulario. 
     setNombre('')
@@ -152,7 +165,7 @@ const Formulario = ( {pacientes, setPacientes, paciente} ) => {
         <input
           type="submit"
           className='bg-indigo-600 p-3 w-full font-bold rounded-md text-white cursor-pointer hover:bg-indigo-700 transition-colors'
-          value="Agregar Paciente"
+          value={ paciente.id ? "Editar Paciente" : "Agregar Paciente" }
         />
 
       </form>
